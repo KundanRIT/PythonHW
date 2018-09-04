@@ -23,6 +23,7 @@ def main():
     drawLetterM(myTurtle)
     drawLetterA(myTurtle)
     drawLetterR(myTurtle)
+    print("close turtle graphics window to exit.")
     mainloop()
 
 '''
