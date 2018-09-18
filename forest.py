@@ -28,12 +28,12 @@ def drawTree(number):
         if height > height1:
             height1 == height
 
-        if height <= 250:
+        if height > 200:
             drawMango(height)
-        elif height <= 200:
-            drawMaple(height)
-        else:
+        elif height > 150:
             drawPine(height)
+        else:
+            drawMaple(height)
     return height1
 
 
@@ -58,9 +58,7 @@ def drawMaple(height):
     turtle.left(180)
     Trunk(height)
     turtle.right(180)
-    turtle.up()
     turtle.forward(100)
-    turtle.down()
 
 
 def drawPine(height):
@@ -69,9 +67,7 @@ def drawPine(height):
     turtle.left(180)
     Trunk(height)
     turtle.right(180)
-    turtle.up()
     turtle.forward(100)
-    turtle.down()
 
 
 def drawMango(height):
@@ -84,11 +80,11 @@ def drawMango(height):
     turtle.right(90)
     Triangle(height / 2)
     turtle.up()
-    turtle.forward(100)
     turtle.right(90)
     turtle.forward(2 * height)
-    turtle.left(90)
     turtle.down()
+    turtle.left(90)
+    turtle.forward(100)
 
 
 def drawHouse(length):
