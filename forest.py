@@ -20,41 +20,28 @@ WINDOW_HEIGHT = 5000
 WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
 """
 
-
-# def drawTree(number):
-#     height1 = 0
-#     for x in range(number):
-#         height = random.randint(50, 250)
-#         if height > height1:
-#             height1 == height
-#
-#         if height > 200:
-#             drawMango(height)
-#         elif height > 150:
-#             drawPine(height)
-#         else:
-#             drawMaple(height)
-#     return height1
-
-
 def drawTree(number):
     maxheight = 0
+    maxHeightPosition = 0
     woods = 0
+    maxTreeHeight = 0
     for x in range(number):
         treeType = random.randint(1,3)
         if treeType == 1:
             height = random.randint(50, 200)
-            treeHeight, woodUsed = drawPine(height)
+            treeheight, woodUsed = drawPine(height)
         elif treeType == 2:
             height = random.randint(50, 150)
-            treeHeight, woodUsed = drawMaple(height)
+            treeheight, woodUsed = drawMaple(height)
         else:
             height = random.randint(50, 250)
-            treeHeight, woodUsed = drawMango(height)
-        if maxheight < treeHeight:
-            maxheight = treeHeight
-            woods += woodUsed
-    return maxheight, woods
+            treeheight, woodUsed = drawMango(height)
+        woods += woodUsed
+        if maxheight < height:
+            maxheight = height
+            maxHeightPosition = x
+            maxTreeHeight = treeheight
+    return maxTreeHeight, maxHeightPosition, woods
 
 def Trunk(height):
     turtle.left(90)
@@ -129,16 +116,18 @@ def drawHouse(length):
     turtle.forward(length + 100)
 
 
-def drawStar(maxHeight):
-    turtle.left(90)
+def drawStar(maxHeight, maxHeightPosition):
     turtle.up()
-    turtle.forward(maxHeight + 10)
+    turtle.backward(maxHeightPosition*100)
+    turtle.left(90)
+    turtle.forward(maxHeight + 10 + 25)
     turtle.down()
     for i in range(8):
         turtle.forward(25)
         turtle.backward(25)
         turtle.left(45)
-
+    turtle.up()
+    turtle.forward(maxHeightPosition * 100)
 
 def drawSun():
     turtle.left(90)
@@ -150,17 +139,15 @@ def drawSun():
 def main():
     number = int(input("How many trees in your forest?"))
     answer = str(input("Is there a house in the forest?"))
-    house = 'y' or 'Y'
     turtle.up()
     turtle.setx(-225)
     turtle.sety(-225)
     turtle.down()
-
-    maxheight, woodUsed = drawTree(number)
-    if answer == house:
-        length=random.randint(100, 200)
-        drawHouse(length)
-    drawStar(maxheight)
+    maxheight, maxheightPosition, woodUsed = drawTree(number)
+    if "y" in answer.lower():
+        drawHouse(100)
+        woodUsed += (2*100+2*math.sqrt(2)*100)
+    drawStar(maxheight, number - maxheightPosition)
     enter = str(input("Night is done... Press Enter for Day"))
     right = ''
     if enter == right:
