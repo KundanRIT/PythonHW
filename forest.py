@@ -39,20 +39,22 @@ WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
 
 def drawTree(number):
     maxheight = 0
+    woods = 0
     for x in range(number):
         treeType = random.randint(1,3)
         if treeType == 1:
             height = random.randint(50, 200)
-            drawPine(height)
+            treeHeight, woodUsed = drawPine(height)
         elif treeType == 2:
             height = random.randint(50, 150)
-            drawMaple(height)
+            treeHeight, woodUsed = drawMaple(height)
         else:
             height = random.randint(50, 250)
-            drawMango(height)
-        if maxheight < height:
-            maxheight = height
-    return maxheight
+            treeHeight, woodUsed = drawMango(height)
+        if maxheight < treeHeight:
+            maxheight = treeHeight
+            woods += woodUsed
+    return maxheight, woods
 
 def Trunk(height):
     turtle.left(90)
@@ -61,11 +63,11 @@ def Trunk(height):
 
 
 def Triangle(height):
-    turtle.forward(height / 4)
+    turtle.forward(height / 2)
     for j in range(0, 3):
         turtle.left(120)
-        turtle.forward(height / 2)
-    turtle.backward(height / 4)
+        turtle.forward(height)
+    turtle.backward(height / 2)
 
 
 def drawMaple(height):
@@ -75,15 +77,17 @@ def drawMaple(height):
     Trunk(height)
     turtle.right(180)
     turtle.forward(100)
+    return 2*height, height+2*math.pi*(height/2)
 
 
 def drawPine(height):
     Trunk(height)
-    Triangle(height)
+    Triangle(height/2)
     turtle.left(180)
     Trunk(height)
     turtle.right(180)
     turtle.forward(100)
+    return height+(math.sqrt(3)/2)*(height/2), (5/2)*height
 
 
 def drawMango(height):
@@ -94,13 +98,15 @@ def drawMango(height):
     turtle.forward(height)
     turtle.down()
     turtle.right(90)
-    Triangle(height / 2)
+    Triangle(height / 4)
     turtle.up()
     turtle.right(90)
     turtle.forward(2 * height)
     turtle.down()
     turtle.left(90)
     turtle.forward(100)
+    return height+height+(math.sqrt(3)/2)*(height/4), \
+           height+height+2*math.pi*(height/2)+((3/4)*(height))
 
 
 def drawHouse(length):
@@ -150,17 +156,15 @@ def main():
     turtle.sety(-225)
     turtle.down()
 
-    maxheight = drawTree(number)
+    maxheight, woodUsed = drawTree(number)
     if answer == house:
         length=random.randint(100, 200)
         drawHouse(length)
-    else:
-        exit()
     drawStar(maxheight)
     enter = str(input("Night is done... Press Enter for Day"))
     right = ''
     if enter == right:
-        print('We have %d units of lumber for the building')
+        print('We have %d units of lumber for the building' %woodUsed)
         print('We will build a house with walls %d tall')
         turtle.clear()
         turtle.up()
