@@ -127,6 +127,8 @@ def drawStar(maxHeight, maxHeightPosition):
         turtle.backward(25)
         turtle.left(45)
     turtle.up()
+    turtle.backward(maxHeight + 10 + 25)
+    turtle.right(90)
     turtle.forward(maxHeightPosition * 100)
 
 def drawSun():
