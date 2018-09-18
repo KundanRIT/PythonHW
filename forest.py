@@ -21,22 +21,38 @@ WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
 """
 
 
+# def drawTree(number):
+#     height1 = 0
+#     for x in range(number):
+#         height = random.randint(50, 250)
+#         if height > height1:
+#             height1 == height
+#
+#         if height > 200:
+#             drawMango(height)
+#         elif height > 150:
+#             drawPine(height)
+#         else:
+#             drawMaple(height)
+#     return height1
+
+
 def drawTree(number):
-    height1 = 0
+    maxheight = 0
     for x in range(number):
-        height = random.randint(50, 250)
-        if height > height1:
-            height1 == height
-
-        if height > 200:
-            drawMango(height)
-        elif height > 150:
+        treeType = random.randint(1,3)
+        if treeType == 1:
+            height = random.randint(50, 200)
             drawPine(height)
-        else:
+        elif treeType == 2:
+            height = random.randint(50, 150)
             drawMaple(height)
-    return height1
-
-
+        else:
+            height = random.randint(50, 250)
+            drawMango(height)
+        if maxheight < height:
+            maxheight = height
+    return maxheight
 
 def Trunk(height):
     turtle.left(90)
@@ -107,10 +123,10 @@ def drawHouse(length):
     turtle.forward(length + 100)
 
 
-def drawStar(height1):
+def drawStar(maxHeight):
     turtle.left(90)
     turtle.up()
-    turtle.forward(height1+10)
+    turtle.forward(maxHeight + 10)
     turtle.down()
     for i in range(8):
         turtle.forward(25)
@@ -134,13 +150,13 @@ def main():
     turtle.sety(-225)
     turtle.down()
 
-    drawTree(number)
+    maxheight = drawTree(number)
     if answer == house:
         length=random.randint(100, 200)
         drawHouse(length)
     else:
         exit()
-    drawStar(380)
+    drawStar(maxheight)
     enter = str(input("Night is done... Press Enter for Day"))
     right = ''
     if enter == right:
