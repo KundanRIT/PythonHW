@@ -167,13 +167,14 @@ def main():
     right = ''
     if enter == right:
         print('We have %d units of lumber for the building' %woodUsed)
-        print('We will build a house with walls %d tall' %(woodUsed/(2 + math.sqrt(2))))
+        dayHouseWall = woodUsed/(2 + math.sqrt(2))
+        print('We will build a house with walls %d tall' %dayHouseWall)
         turtle.clear()
         turtle.up()
         turtle.setx(-225)
         turtle.sety(-225)
         turtle.down()
-        drawHouse(250)
+        drawHouse(dayHouseWall)
         drawSun(woodUsed)
     else:
         exit()
