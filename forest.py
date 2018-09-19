@@ -9,8 +9,6 @@ import turtle as turtle
 import random
 import math
 
-"""pop = turtle.Screen()               # creates a graphics window"""
-
 # global constants for window dimensions
 
 WINDOW_WIDTH = 1000
