@@ -87,6 +87,7 @@ def drawHouse(length):
     turtle.forward(length)
     turtle.left(90)
     turtle.forward(length)
+    return (2*length+math.sqrt(2)*length)
 
 def drawStar(height):
     turtle.up()
@@ -123,20 +124,20 @@ def main():
     turtle.sety(-400)
     turtle.down()
     number = int(input("How many trees in your forest?"))
-    trees = {}
+    trees = {} # key -> index of tree | value -> [type of tree, height of tree]
     maxheight = height = 0
     starPosition = 0
     requestedHouse = False
     housePosition = None
     for index in range(number):
         typeOfTree = random.randint(1,3)
-        if typeOfTree == 1:
+        if typeOfTree == 1: # pine tree
             height = random.randint(50, 200)
             trees[index] = [1, height]
-        elif typeOfTree == 2:
+        elif typeOfTree == 2: # maple tree
             height = random.randint(50, 150)
             trees[index] = [2, height]
-        elif typeOfTree == 3:
+        elif typeOfTree == 3: # mango tree
             height = random.randint(50, 170)
             trees[index] = [3, height]
         if maxheight < height:
@@ -149,13 +150,11 @@ def main():
             housePosition = random.randint(1, number-1) - 1
         else:
             housePosition = 0
-
     availableWoods = 0
-    if number==0 and "y" in answer.lower():
-        drawHouse(100)
+    if number==0 and "y":
+        if requestedHouse:
+            availableWoods = drawHouse(100)
         drawStar(100*3/2)
-        availableWoods += (2*100+math.sqrt(2)*100)
-
     for index,tree in trees.items():
         treeHeight, woodUsed = drawTree(tree)
         availableWoods += woodUsed
@@ -165,26 +164,22 @@ def main():
             turtle.down()
             turtle.forward(100)
         if index == housePosition and requestedHouse:
-            drawHouse(100)
-            availableWoods += (2*100+math.sqrt(2)*100)
+            availableWoods += drawHouse(100)
             if number > 1:
                 turtle.down()
                 turtle.forward(100)
-    enter = str(input("Night is done... Press Enter for Day"))
-    right = ''
-    if enter == right:
-        print('We have %d units of lumber for the building' %availableWoods)
-        dayHouseWall = availableWoods/(2 + math.sqrt(2))
-        print('We will build a house with walls %d tall' %dayHouseWall)
-        turtle.clear()
-        turtle.up()
-        turtle.setx(-400)
-        turtle.sety(-400)
-        turtle.down()
-        drawHouse(dayHouseWall)
-        drawSun(dayHouseWall)
-    else:
-        exit()
+    input("Night is done. Do you want to chop down all trees... Press Enter "
+          "for Day")
+    print('We have %d units of lumber for the building' %availableWoods)
+    dayHouseWall = availableWoods/(2 + math.sqrt(2))
+    print('We will build a house with walls %d tall' %dayHouseWall)
+    turtle.clear()
+    turtle.up()
+    turtle.setx(-400)
+    turtle.sety(-400)
+    turtle.down()
+    drawHouse(dayHouseWall)
+    drawSun(dayHouseWall)
     turtle.getscreen()._root.mainloop()
 
 if __name__ == '__main__':
