@@ -160,14 +160,14 @@ def main():
         turtle.forward(100)
         if index == housePosition and requestedHouse:
             drawHouse(100)
-            availableWoods += (2*100+2*math.sqrt(2)*100)
+            availableWoods += (2*100+math.sqrt(2)*100)
             turtle.down()
             turtle.forward(100)
     enter = str(input("Night is done... Press Enter for Day"))
     right = ''
     if enter == right:
-        print('We have %d units of lumber for the building' %woodUsed)
-        dayHouseWall = woodUsed/(2 + math.sqrt(2))
+        print('We have %d units of lumber for the building' %availableWoods)
+        dayHouseWall = availableWoods/(2 + math.sqrt(2))
         print('We will build a house with walls %d tall' %dayHouseWall)
         turtle.clear()
         turtle.up()
