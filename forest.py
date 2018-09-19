@@ -156,13 +156,15 @@ def main():
         availableWoods += woodUsed
         if index == starPosition:
             drawStar(treeHeight)
-        turtle.down()
-        turtle.forward(100)
+        if index < number-1 or number is 1:
+            turtle.down()
+            turtle.forward(100)
         if index == housePosition and requestedHouse:
             drawHouse(100)
             availableWoods += (2*100+math.sqrt(2)*100)
-            turtle.down()
-            turtle.forward(100)
+            if number > 1:
+                turtle.down()
+                turtle.forward(100)
     enter = str(input("Night is done... Press Enter for Day"))
     right = ''
     if enter == right:
@@ -175,7 +177,7 @@ def main():
         turtle.sety(-225)
         turtle.down()
         drawHouse(dayHouseWall)
-        drawSun(woodUsed)
+        drawSun(dayHouseWall)
     else:
         exit()
     turtle.getscreen()._root.mainloop()
