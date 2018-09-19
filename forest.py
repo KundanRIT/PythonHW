@@ -151,7 +151,13 @@ def main():
             housePosition = random.randint(1, number-1) - 1
         else:
             housePosition = 0
+
     availableWoods = 0
+    if number==0 and "y" in answer.lower():
+        drawHouse(100)
+        drawStar(100*3/2)
+        availableWoods += (2*100+math.sqrt(2)*100)
+
     for index,tree in trees.items():
         treeHeight, woodUsed = drawTree(tree)
         availableWoods += woodUsed
