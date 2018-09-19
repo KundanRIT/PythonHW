@@ -9,6 +9,7 @@ import turtle as turtle
 import random
 import math
 
+
 # global constants for window dimensions
 
 WINDOW_WIDTH = 1000
@@ -25,6 +26,12 @@ def Trunk(height):
     turtle.right(90)
     turtle.up()
 
+    """
+    Draw the Tree Trunk.
+    :pre: (relative) pos (0,0), heading (east), up
+    :post: (relative) pos (0,height), heading (east), up
+    :return: None
+    """
 def Triangle(height):
     turtle.down()
     turtle.forward(height / 2)
@@ -33,6 +40,13 @@ def Triangle(height):
         turtle.forward(height)
     turtle.backward(height / 2)
     turtle.up()
+
+    """
+    Draw the Triangle.
+    :pre: (relative) pos (0,0), heading (east), up
+    :post: (relative) pos (0,0), heading (east), up
+    :return: None
+    """
 
 def drawMaple(height):
     Trunk(height)
@@ -43,6 +57,13 @@ def drawMaple(height):
     turtle.right(180)
     return 2*height, height+2*math.pi*(height/2)
 
+    """
+    Draw the Maple crown.
+    :pre: (relative) pos (0,0), heading (east), up
+    :post: (relative) pos (100,0), heading (east), up
+    :return: Wood made by the tree
+    """
+
 def drawPine(height):
     Trunk(height)
     Triangle(height/2)
@@ -50,6 +71,13 @@ def drawPine(height):
     Trunk(height)
     turtle.right(180)
     return height+(math.sqrt(3)/2)*(height/2), (5/2)*height
+
+    """
+    Draw the Pine Crown
+    :pre: (relative) pos (0,0), heading (east), up
+    :post: (relative) pos (100,0), heading (east), up
+    :return: Wood made by the tree
+    """
 
 def drawMango(height):
     Trunk(height)
@@ -68,6 +96,13 @@ def drawMango(height):
     turtle.left(90)
     return height+height+(math.sqrt(3)/2)*(height/4), \
            height+height+2*math.pi*(height/2)+((3/4)*(height))
+
+    """
+    Draw the Mango crown.
+    :pre: (relative) pos (0,0), heading (east), up
+    :post: (relative) pos (100,0), heading (east), up
+    :return: Wood made by the tree
+    """
 
 def drawHouse(length):
     turtle.up()
@@ -88,6 +123,13 @@ def drawHouse(length):
     turtle.left(90)
     turtle.forward(length)
 
+    """
+    Draw the House.
+    :pre: (relative) pos (0,0), heading (east), down
+    :post: (relative) pos (0,0), heading (east), up
+    :return: none
+    """
+
 def drawStar(height):
     turtle.up()
     turtle.left(90)
@@ -101,6 +143,13 @@ def drawStar(height):
     turtle.backward(height + 10 + 20)
     turtle.right(90)
 
+    """
+    Draw the Star.
+    :pre: (relative) pos (0,0), heading (east), down
+    :post: (relative) pos (0,0), heading (east), up
+    :return: none
+    """
+
 def drawSun(dayHouseWall):
     turtle.forward(100)
     turtle.left(90)
@@ -108,6 +157,13 @@ def drawSun(dayHouseWall):
     turtle.down()
     turtle.right(90)
     turtle.circle(25)
+    """
+    Draw the Sun.
+    :pre: (relative) pos (0,0), heading (east), up
+    :post: (relative) pos (0,0), heading (east), down
+    :return: none
+    """
+
 
 def drawTree(tree):
     if tree[0] == 1:
