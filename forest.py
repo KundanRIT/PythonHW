@@ -131,9 +131,9 @@ def drawStar(maxHeight, maxHeightPosition):
     turtle.right(90)
     turtle.forward(maxHeightPosition * 100)
 
-def drawSun():
+def drawSun(woodUsed):
     turtle.left(90)
-    turtle.forward(300)
+    turtle.forward(woodUsed/4 +10)
     turtle.down()
     turtle.right(90)
     turtle.circle(50)
@@ -154,15 +154,14 @@ def main():
     right = ''
     if enter == right:
         print('We have %d units of lumber for the building' %woodUsed)
-        print('We will build a house with walls %d tall')
+        print('We will build a house with walls %d tall' %(woodUsed/(2 + math.sqrt(2))))
         turtle.clear()
         turtle.up()
         turtle.setx(-225)
         turtle.sety(-225)
-        turtle.right(90)
         turtle.down()
         drawHouse(250)
-        drawSun()
+        drawSun(woodUsed)
     else:
         exit()
     turtle.getscreen()._root.mainloop()
