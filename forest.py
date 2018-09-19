@@ -5,7 +5,7 @@ CSCI-603: Homework 2 (Forest)
 Author: Deepam Shah & Kundan Kumar
 """
 
-import turtle
+import turtle as turtle
 import random
 import math
 
@@ -13,12 +13,12 @@ import math
 
 # global constants for window dimensions
 
-WINDOW_WIDTH = 5000
-WINDOW_HEIGHT = 5000
+WINDOW_WIDTH = 1000
+WINDOW_HEIGHT = 1000
 
-"""t.setworldcoordinates(-WINDOW_WIDTH/2, -WINDOW_WIDTH/2,
+turtle.setworldcoordinates(-WINDOW_WIDTH/2, -WINDOW_WIDTH/2,
 WINDOW_WIDTH/2, WINDOW_HEIGHT/2)
-"""
+
 
 def Trunk(height):
     turtle.down()
@@ -103,12 +103,13 @@ def drawStar(height):
     turtle.backward(height + 10 + 20)
     turtle.right(90)
 
-def drawSun(woodUsed):
+def drawSun(dayHouseWall):
+    turtle.forward(100)
     turtle.left(90)
-    turtle.forward(woodUsed/4 +10)
+    turtle.forward(3*dayHouseWall/2 + 10)
     turtle.down()
     turtle.right(90)
-    turtle.circle(50)
+    turtle.circle(25)
 
 def drawTree(tree):
     if tree[0] == 1:
@@ -120,8 +121,8 @@ def drawTree(tree):
 
 def main():
     turtle.up()
-    turtle.setx(-225)
-    turtle.sety(-225)
+    turtle.setx(-400)
+    turtle.sety(-400)
     turtle.down()
     number = int(input("How many trees in your forest?"))
     trees = {}
@@ -173,8 +174,8 @@ def main():
         print('We will build a house with walls %d tall' %dayHouseWall)
         turtle.clear()
         turtle.up()
-        turtle.setx(-225)
-        turtle.sety(-225)
+        turtle.setx(-400)
+        turtle.sety(-400)
         turtle.down()
         drawHouse(dayHouseWall)
         drawSun(dayHouseWall)
