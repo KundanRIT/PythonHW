@@ -33,7 +33,7 @@ def drawPolygon(side, length, fill, vector):
     '''
     # change color of turtle pen as specified in COLORS
     vector.color(COLORS[side - 3])
-    # change pensize depending on the side
+    # change pensize depending on the length of side
     vector.pensize(length/25)
     if side == 3:
         # base case (create a polygon of side 3)
