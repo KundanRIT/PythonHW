@@ -1,0 +1,6 @@
+<application>
+  <component name="NotificationConfiguration">
+    <notification groupId="Remote Desktop" />
+    <notification groupId="Web Deployment: Remote Host" displayType="TOOL_WINDOW" />
+  </component>
+</application>
