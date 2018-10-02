@@ -51,6 +51,15 @@ def tauTransformation(cipher, message, indexI, indexJ, divide=1):
     return "".join(divided)
 
 
+def alphaTransformation(cipher, message):
+    if cipher is "e":
+        return message + message[len(message)-2::-1]
+    elif cipher is "d":
+        return message[:len(message)//2+1]
+    else:
+        return None
+
+
 def main():
     message = "message.txt"
     instruction = "instruction.txt"
@@ -85,11 +94,20 @@ def main():
                 result = deltaTransformation(cipher, text, int(inst[1:]))
         elif inst[0] is "T":
             if "(" in inst:
+                openBracketIndex = inst.index("(")
+                closedBracketIndex = inst.index(")")
+                commaIndex = inst.index(",")
+                result = tauTransformation(cipher, text,
+                         int(inst[closedBracketIndex+1:commaIndex]),
+                         int(inst[commaIndex + 1:]), len(text)//
+                            int(inst[openBracketIndex+1:closedBracketIndex]))
                 pass
             else:
                 commaIndex = inst.index(",")
                 result = tauTransformation(cipher, text,
                         int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+        elif inst is "A":
+            result = alphaTransformation(cipher, text)
         feed[index].append(result)
     for result in feed:
         print("{}\t{}\t{}".format(result[0],result[1],result[2]))
