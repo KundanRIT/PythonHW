@@ -25,11 +25,28 @@ def sigmaTransformation(cipher, message, index, times=1):
         return None
 
 
+def roTransformation(cipher, message, times=1):
+    times = times % len(message)
+    if cipher is "e":
+        return message[-times:][::-1] + message[:-times]
+    elif cipher is "d":
+        return message[times:] + message[:times][::-1]
+    return None
+
+
+def deltaTransformation(cipher, message, index, times=1):
+    if cipher is "e":
+        return message[:index] + message[index]*times + message[index+1:]
+    elif cipher is "d":
+        return message[:index] + message[index+times-1:]
+    return None
+
+
 def main():
     message = "message.txt"
     instruction = "instruction.txt"
     output = "output.txt"
-    cipher = "e"
+    cipher = "d"
     feed = []
     with open(message) as messageFile, open(instruction) as instructionFile:
         for messageLine, instructionLine in zip(messageFile, instructionFile):
@@ -45,6 +62,18 @@ def main():
                         int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
             else:
                 result = sigmaTransformation(cipher, text, int(inst[1:]))
+        elif inst[0] is "R":
+            if len(inst) is 1:
+                result = roTransformation(cipher, text)
+            else:
+                result = roTransformation(cipher, text, int(inst[1:]))
+        elif inst[0] is "D":
+            if "," in inst:
+                commaIndex = inst.index(",")
+                result = deltaTransformation(cipher, text,
+                        int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+            else:
+                result = deltaTransformation(cipher, text, int(inst[1:]))
         feed[index].append(result)
     for result in feed:
         print("{}\t{}\t{}".format(result[0],result[1],result[2]))
