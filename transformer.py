@@ -55,7 +55,7 @@ def main():
     message = "message.txt"
     instruction = "instruction.txt"
     output = "output.txt"
-    cipher = "d"
+    cipher = "e"
     feed = []
     with open(message) as messageFile, open(instruction) as instructionFile:
         for messageLine, instructionLine in zip(messageFile, instructionFile):
