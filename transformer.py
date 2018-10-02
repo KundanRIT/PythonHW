@@ -1,3 +1,6 @@
+import textwrap
+
+
 def shiftRight(character, move):
     move = move % 26
     moved = ord(character) + move
@@ -42,6 +45,12 @@ def deltaTransformation(cipher, message, index, times=1):
     return None
 
 
+def tauTransformation(cipher, message, indexI, indexJ, divide=1):
+    divided = textwrap.wrap(message, divide)
+    divided[indexI], divided[indexJ] = divided[indexJ], divided[indexI]
+    return "".join(divided)
+
+
 def main():
     message = "message.txt"
     instruction = "instruction.txt"
@@ -74,6 +83,13 @@ def main():
                         int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
             else:
                 result = deltaTransformation(cipher, text, int(inst[1:]))
+        elif inst[0] is "T":
+            if "(" in inst:
+                pass
+            else:
+                commaIndex = inst.index(",")
+                result = tauTransformation(cipher, text,
+                        int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
         feed[index].append(result)
     for result in feed:
         print("{}\t{}\t{}".format(result[0],result[1],result[2]))
