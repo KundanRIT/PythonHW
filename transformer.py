@@ -19,11 +19,19 @@ def shiftLeft(character, move):
 
 def sigmaTransformation(cipher, message, index, times=1):
     if cipher is "e":
-        return message[0:index] + shiftRight(message[index], times) + message[
-                                                                     index + 1:]
+        if times > 0:
+            return message[0:index] + shiftRight(message[index], times) + \
+                   message[index + 1:]
+        else:
+            return message[0:index] + shiftLeft(message[index], times) + \
+                   message[index + 1:]
     elif cipher is "d":
-        return message[0:index] + shiftLeft(message[index], times) + message[
-                                                                     index + 1:]
+        if times > 0:
+            return message[0:index] + shiftLeft(message[index], times) + \
+                   message[index + 1:]
+        else:
+            return message[0:index] + shiftRight(message[index], times) + \
+                   message[index + 1:]
     else:
         return None
 
@@ -31,9 +39,15 @@ def sigmaTransformation(cipher, message, index, times=1):
 def roTransformation(cipher, message, times=1):
     times = times % len(message)
     if cipher is "e":
-        return message[-times:] + message[:-times]
+        if times > 0:
+            return message[-times:] + message[:-times]
+        else:
+            return message[times:] + message[:times]
     elif cipher is "d":
-        return message[times:] + message[:times][::-1]
+        if times > 0:
+            return message[times:] + message[:times]
+        else:
+            return message[-times:] + message[:-times]
     return None
 
 
@@ -41,7 +55,7 @@ def deltaTransformation(cipher, message, index, times=1):
     if cipher is "e":
         return message[:index] + message[index]*times + message[index:]
     elif cipher is "d":
-        return message[:index] + message[index+times-1:]
+        return message[:index] + message[index+times:]
     return None
 
 
@@ -64,7 +78,7 @@ def main():
     message = "message.txt"
     instruction = "instruction.txt"
     output = "output.txt"
-    cipher = "e"
+    cipher = "d"
     feed = []
     with open(message) as messageFile, open(instruction) as instructionFile:
         for messageLine, instructionLine in zip(messageFile, instructionFile):
@@ -72,6 +86,8 @@ def main():
     for index, input in enumerate(feed):
         text = input[0]
         allInst = input[1].split(";")
+        if cipher == "d":
+            allInst.reverse()
         result = ""
         for inst in allInst:
             if inst[0] is "S":
