@@ -71,46 +71,48 @@ def main():
             feed.append([messageLine.strip(), instructionLine.strip()])
     for index, input in enumerate(feed):
         text = input[0]
-        inst = input[1]
-        result = None
-        if inst[0] is "S":
-            if "," in inst:
-                commaIndex = inst.index(",")
-                result = sigmaTransformation(cipher, text,
-                        int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
-            else:
-                result = sigmaTransformation(cipher, text, int(inst[1:]))
-        elif inst[0] is "R":
-            if len(inst) is 1:
-                result = roTransformation(cipher, text)
-            else:
-                result = roTransformation(cipher, text, int(inst[1:]))
-        elif inst[0] is "D":
-            if "," in inst:
-                commaIndex = inst.index(",")
-                result = deltaTransformation(cipher, text,
-                        int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
-            else:
-                result = deltaTransformation(cipher, text, int(inst[1:]))
-        elif inst[0] is "T":
-            if "(" in inst:
-                openBracketIndex = inst.index("(")
-                closedBracketIndex = inst.index(")")
-                commaIndex = inst.index(",")
-                result = tauTransformation(cipher, text,
-                         int(inst[closedBracketIndex+1:commaIndex]),
-                         int(inst[commaIndex + 1:]), len(text)//
-                            int(inst[openBracketIndex+1:closedBracketIndex]))
-                pass
-            else:
-                commaIndex = inst.index(",")
-                result = tauTransformation(cipher, text,
-                        int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
-        elif inst is "A":
-            result = alphaTransformation(cipher, text)
+        allInst = input[1].split(";")
+        result = ""
+        for inst in allInst:
+            if inst[0] is "S":
+                if "," in inst:
+                    commaIndex = inst.index(",")
+                    result += sigmaTransformation(cipher, text,
+                            int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+                else:
+                    result += sigmaTransformation(cipher, text, int(inst[1:]))
+            elif inst[0] is "R":
+                if len(inst) is 1:
+                    result += roTransformation(cipher, text)
+                else:
+                    result += roTransformation(cipher, text, int(inst[1:]))
+            elif inst[0] is "D":
+                if "," in inst:
+                    commaIndex = inst.index(",")
+                    result += deltaTransformation(cipher, text,
+                            int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+                else:
+                    result += deltaTransformation(cipher, text, int(inst[1:]))
+            elif inst[0] is "T":
+                if "(" in inst:
+                    openBracketIndex = inst.index("(")
+                    closedBracketIndex = inst.index(")")
+                    commaIndex = inst.index(",")
+                    result += tauTransformation(cipher, text,
+                             int(inst[closedBracketIndex+1:commaIndex]),
+                             int(inst[commaIndex + 1:]), len(text)//
+                                int(inst[openBracketIndex+1:closedBracketIndex]))
+                else:
+                    commaIndex = inst.index(",")
+                    result += tauTransformation(cipher, text,
+                            int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+            elif inst is "A":
+                result += alphaTransformation(cipher, text)
         feed[index].append(result)
-    for result in feed:
-        print("{}\t{}\t{}".format(result[0],result[1],result[2]))
+    with open(output, "a") as outputFile:
+        for result in feed:
+            print("{}\t{}\t{}".format(result[0],result[1],result[2]))
+            outputFile.write(result[2]+"\n")
 
 
 if __name__ == '__main__':
