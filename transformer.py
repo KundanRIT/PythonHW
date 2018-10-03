@@ -1,3 +1,4 @@
+import sys
 import textwrap
 
 
@@ -75,17 +76,30 @@ def alphaTransformation(cipher, message):
 
 
 def main():
-    message = "message.txt"
-    instruction = "instruction.txt"
-    output = "output.txt"
-    cipher = "d"
+    if len(sys.argv) == 5:
+        message = sys.argv[1]
+        instruction = sys.argv[2]
+        output = sys.argv[3]
+        cipher = sys.argv[4]
+    else:
+        print("You provided invalid command line arguments. "
+              "Please provide them separately")
+        message = input("Enter message file name\n")
+        instruction = input("Enter instruction file name\n")
+        output = input("Enter output file name\n")
+        cipher = input("encrypt or decrypt ? [e/d]\n")
+
+    # message = "message.txt"
+    # instruction = "instruction.txt"
+    # output = "output.txt"
+    # cipher = "e"
     feed = []
     with open(message) as messageFile, open(instruction) as instructionFile:
         for messageLine, instructionLine in zip(messageFile, instructionFile):
             feed.append([messageLine.strip(), instructionLine.strip()])
-    for index, input in enumerate(feed):
-        text = input[0]
-        allInst = input[1].split(";")
+    for index, inputLine in enumerate(feed):
+        text = inputLine[0]
+        allInst = inputLine[1].split(";")
         if cipher == "d":
             allInst.reverse()
         result = ""
