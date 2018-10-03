@@ -31,7 +31,7 @@ def sigmaTransformation(cipher, message, index, times=1):
 def roTransformation(cipher, message, times=1):
     times = times % len(message)
     if cipher is "e":
-        return message[-times:][::-1] + message[:-times]
+        return message[-times:] + message[:-times]
     elif cipher is "d":
         return message[times:] + message[:times][::-1]
     return None
@@ -39,7 +39,7 @@ def roTransformation(cipher, message, times=1):
 
 def deltaTransformation(cipher, message, index, times=1):
     if cipher is "e":
-        return message[:index] + message[index]*times + message[index+1:]
+        return message[:index] + message[index]*times + message[index:]
     elif cipher is "d":
         return message[:index] + message[index+times-1:]
     return None
@@ -77,39 +77,40 @@ def main():
             if inst[0] is "S":
                 if "," in inst:
                     commaIndex = inst.index(",")
-                    result += sigmaTransformation(cipher, text,
+                    result = sigmaTransformation(cipher, text,
                             int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
                 else:
-                    result += sigmaTransformation(cipher, text, int(inst[1:]))
+                    result = sigmaTransformation(cipher, text, int(inst[1:]))
             elif inst[0] is "R":
                 if len(inst) is 1:
-                    result += roTransformation(cipher, text)
+                    result = roTransformation(cipher, text)
                 else:
-                    result += roTransformation(cipher, text, int(inst[1:]))
+                    result = roTransformation(cipher, text, int(inst[1:]))
             elif inst[0] is "D":
                 if "," in inst:
                     commaIndex = inst.index(",")
-                    result += deltaTransformation(cipher, text,
+                    result = deltaTransformation(cipher, text,
                             int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
                 else:
-                    result += deltaTransformation(cipher, text, int(inst[1:]))
+                    result = deltaTransformation(cipher, text, int(inst[1:]))
             elif inst[0] is "T":
                 if "(" in inst:
                     openBracketIndex = inst.index("(")
                     closedBracketIndex = inst.index(")")
                     commaIndex = inst.index(",")
-                    result += tauTransformation(cipher, text,
+                    result = tauTransformation(cipher, text,
                              int(inst[closedBracketIndex+1:commaIndex]),
                              int(inst[commaIndex + 1:]), len(text)//
                                 int(inst[openBracketIndex+1:closedBracketIndex]))
                 else:
                     commaIndex = inst.index(",")
-                    result += tauTransformation(cipher, text,
+                    result = tauTransformation(cipher, text,
                             int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
             elif inst is "A":
-                result += alphaTransformation(cipher, text)
+                result = alphaTransformation(cipher, text)
+            text = result
         feed[index].append(result)
-    with open(output, "a") as outputFile:
+    with open(output, "w") as outputFile:
         for result in feed:
             print("{}\t{}\t{}".format(result[0],result[1],result[2]))
             outputFile.write(result[2]+"\n")
