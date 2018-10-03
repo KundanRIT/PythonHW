@@ -9,6 +9,7 @@ Alpha transformation is our own function which makes a palindrome of that
 input word.
 
 """
+import sys
 import textwrap
 
 
@@ -34,11 +35,19 @@ def shiftLeft(character, move):
 # transformation should happen
 def sigmaTransformation(cipher, message, index, times=1):
     if cipher is "e":
-        return message[0:index] + shiftRight(message[index], times) + message[
-                                                                     index + 1:]
+        if times > 0:
+            return message[0:index] + shiftRight(message[index], times) + \
+                   message[index + 1:]
+        else:
+            return message[0:index] + shiftLeft(message[index], times) + \
+                   message[index + 1:]
     elif cipher is "d":
-        return message[0:index] + shiftLeft(message[index], times) + message[
-                                                                     index + 1:]
+        if times > 0:
+            return message[0:index] + shiftLeft(message[index], times) + \
+                   message[index + 1:]
+        else:
+            return message[0:index] + shiftRight(message[index], times) + \
+                   message[index + 1:]
     else:
         return None
 
@@ -49,9 +58,15 @@ def sigmaTransformation(cipher, message, index, times=1):
 def roTransformation(cipher, message, times=1):
     times = times % len(message)
     if cipher is "e":
-        return message[-times:] + message[:-times]
+        if times > 0:
+            return message[-times:] + message[:-times]
+        else:
+            return message[times:] + message[:times]
     elif cipher is "d":
-        return message[times:] + message[:times][::-1]
+        if times > 0:
+            return message[times:] + message[:times]
+        else:
+            return message[-times:] + message[:-times]
     return None
 
 # delta transformation takes 4 variables cipher, message,index and times
@@ -64,7 +79,7 @@ def deltaTransformation(cipher, message, index, times=1):
     if cipher is "e":
         return message[:index] + message[index]*times + message[index:]
     elif cipher is "d":
-        return message[:index] + message[index+times-1:]
+        return message[:index] + message[index+times:]
     return None
 
 # ta transformation takes 5 variables cipher, message,indexI,indexJ
@@ -78,7 +93,11 @@ def tauTransformation(cipher, message, indexI, indexJ, divide=1):
     divided[indexI], divided[indexJ] = divided[indexJ], divided[indexI]
     return "".join(divided)
 
-
+# alpha transformation takes 2 variables cipher and message
+# if we choose 'e' as cipher and our message is race, it will
+# convert it to racecar
+# similarly if we choose 'd' as cipher and our message is racecar,
+# it will convert to race
 def alphaTransformation(cipher, message):
     if cipher is "e":
         return message + message[len(message)-2::-1]
@@ -89,17 +108,32 @@ def alphaTransformation(cipher, message):
 
 
 def main():
-    message = "message.txt"
-    instruction = "instruction.txt"
-    output = "output.txt"
-    cipher = "e"
+    if len(sys.argv) == 5:
+        message = sys.argv[1]
+        instruction = sys.argv[2]
+        output = sys.argv[3]
+        cipher = sys.argv[4]
+    else:
+        print("You provided invalid command line arguments. "
+              "Please provide them separately")
+        message = input("Enter message file name [message.txt]\n")
+        instruction = input("Enter instruction file name [instruction.txt]\n")
+        output = input("Enter output file name [output.txt]\n")
+        cipher = input("encrypt or decrypt ? [e/d]\n")
+
+    # message = "message.txt"
+    # instruction = "instruction.txt"
+    # output = "output.txt"
+    # cipher = "e"
     feed = []
     with open(message) as messageFile, open(instruction) as instructionFile:
         for messageLine, instructionLine in zip(messageFile, instructionFile):
             feed.append([messageLine.strip(), instructionLine.strip()])
-    for index, input in enumerate(feed):
-        text = input[0]
-        allInst = input[1].split(";")
+    for index, inputLine in enumerate(feed):
+        text = inputLine[0]
+        allInst = inputLine[1].split(";")
+        if cipher == "d":
+            allInst.reverse()
         result = ""
         for inst in allInst:
             if inst[0] is "S":
