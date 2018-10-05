@@ -1,3 +1,14 @@
+"""
+Authors - Kundan Kumar (kk7272) & Deepam Shah (ds3689)
+Version - 4
+Revision - 3
+transformer.py file is the main file which takes data from instruction.txt
+and message.txt file
+There are 5 transformations in this code namely sigma, ro, delta, tau and alpha.
+Alpha transformation is our own function which makes a palindrome of that
+input word.
+
+"""
 import sys
 import textwrap
 
@@ -17,7 +28,11 @@ def shiftLeft(character, move):
         moved = 91 - (65 - moved)
     return chr(moved)
 
-
+# sigma transformation takes 4 variables cipher, message,index and times
+# cipher can either be 'e' encryption or 'd' decryption
+# message is the message which we want to encrypt or decrypt
+# index is the position and times refer to the number of times the
+# transformation should happen
 def sigmaTransformation(cipher, message, index, times=1):
     if cipher is "e":
         if times > 0:
@@ -36,7 +51,10 @@ def sigmaTransformation(cipher, message, index, times=1):
     else:
         return None
 
-
+# ro transformation takes 3 variables cipher, message and times
+# cipher can either be 'e' encryption or 'd' decryption
+# message is the message which we want to encrypt or decrypt
+# times refer to the number of times the transformation should happen
 def roTransformation(cipher, message, times=1):
     times = times % len(message)
     if cipher is "e":
@@ -51,6 +69,11 @@ def roTransformation(cipher, message, times=1):
             return message[-times:] + message[:-times]
     return None
 
+# delta transformation takes 4 variables cipher, message,index and times
+# cipher can either be 'e' encryption or 'd' decryption
+# message is the message which we want to encrypt or decrypt
+# index is the position and times refer to the number of times the
+# transformation should happen
 
 def deltaTransformation(cipher, message, index, times=1):
     if cipher is "e":
@@ -59,13 +82,22 @@ def deltaTransformation(cipher, message, index, times=1):
         return message[:index] + message[index+times:]
     return None
 
+# ta transformation takes 5 variables cipher, message,indexI,indexJ
+# and divide
+# cipher can either be 'e' encryption or 'd' decryption
+# message is the message which we want to encrypt or decrypt
+# indexI and indexJ is used to transfer the alphabet at indexI and indexJ
 
 def tauTransformation(cipher, message, indexI, indexJ, divide=1):
     divided = textwrap.wrap(message, divide)
     divided[indexI], divided[indexJ] = divided[indexJ], divided[indexI]
     return "".join(divided)
 
-
+# alpha transformation takes 2 variables cipher and message
+# if we choose 'e' as cipher and our message is race, it will
+# convert it to racecar
+# similarly if we choose 'd' as cipher and our message is racecar,
+# it will convert to race
 def alphaTransformation(cipher, message):
     if cipher is "e":
         return message + message[len(message)-2::-1]
@@ -84,9 +116,9 @@ def main():
     else:
         print("You provided invalid command line arguments. "
               "Please provide them separately")
-        message = input("Enter message file name\n")
-        instruction = input("Enter instruction file name\n")
-        output = input("Enter output file name\n")
+        message = input("Enter message file name [message.txt]\n")
+        instruction = input("Enter instruction file name [instruction.txt]\n")
+        output = input("Enter output file name [output.txt]\n")
         cipher = input("encrypt or decrypt ? [e/d]\n")
 
     # message = "message.txt"
