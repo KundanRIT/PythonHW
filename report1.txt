@@ -1,0 +1,35 @@
+In this experiment, we are comparing the different sorting algorithms with different amount of integers.
+We perform the experiment for N=1,10,100,1000,10000 and observe the performance of the sorting algorithms
+like insertion sort, merge sort, Selection sort, quick sort.
+
+N=1
+We observed that for just one input integer, every algorithm works the same way because a single number is 
+always sorted.
+
+N=10
+We observed that for N=10, the algorithm doesn't offer much difference as there are very less comparisons 
+to be done for all the algorithms. So the time taken by the sorting algorithms has very minute difference.
+
+N=100
+We observe that as we are increasing the number of integers for sorting, the number of comparison for every 
+algorithm significantly increases and it depends on how the integer pool is variedly distributed. 
+One of the things which affects the time
+
+N=1000
+We observe that for N=1000, the merge sort and quick sort behaves much better than the insertion sort or
+the selection sort because insertion sort and selection sort are having time complexity of O(n^2) 
+in worst case. In normal cases, selection sort performs better than the insertion sort. As we are taking 
+random numbers for our experiment, we can see that selection sort and insertion sort have performed better 
+in some cases too and that depends on the distribution of the integers in the integer set.
+
+N=10000
+We observe that for N=10000, the selection sort and insertion sort starts behaving much more badly in 
+comparison to the lesser number of integers because as the number of integer increases, the number of 
+comparisons increases. Merge sort performs better than the quick sort because even in the worst case, 
+the merge sort takes O(n*log(n)) while quick sort takes O(n^2). Also merge sort takes extra space for
+computing which reduces the time to compute.
+
+For N=10^6, I expect merge sort to behave same as quick sort if the integer pool is already sorted.
+But in the worst case, I expect merge sort to perform better than quick sort because of stability of merge 
+sort.
+
