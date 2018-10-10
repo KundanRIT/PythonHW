@@ -1,15 +1,28 @@
+# sorting_experiment.py (Python HW 3)
+# Author: Kundan Kumar (kk7272) & Deepam Shah (ds3689)
+
 import random
 import sys
 from time import time
 from instrumented_sort import ssort, msort, isort, qsort
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
 def generateData(size):
+    """
+    generate a random list of specified size
+    :param size:
+    :return: a random list
+    """
     return random.sample(range(size), size)
 
 
 def check_sorted(itemList):
+    """
+    check if the passed list is sorted
+    :param itemList:
+    :return: boolean
+    """
     for index in range(len(itemList)-1):
         if itemList[index] > itemList[index+1]:
             return False
@@ -17,12 +30,16 @@ def check_sorted(itemList):
 
 
 def main():
+    """
+    main method. performs the sorting experiments and generates report.
+    :return:
+    """
     # fetch size from commandline
     if len(sys.argv) > 1:
         size = int(sys.argv[1])
     else:
         size = 1000
-    comparisions = 1234
+
     # generate data
     testData = generateData(size)
     selectionSortList = testData.copy()
@@ -91,15 +108,15 @@ def main():
         observation.write("Quick Sort\t\t{}\t{}\t\t{}\n\n"
                           .format(size, qsort_comparisons, qsort_time))
 
-    # generate report
-    x = ["Selection Sort","Merge Sort","Insertion Sort","Quick Sort"]
-    y = [ssort_time, msort_time, isort_time, qsort_time]
-    plt.bar(x, y, label="Time Chart", color="b")
-    plt.xlabel("Sorting Techniques")
-    plt.ylabel("Time Taken (Seconds)")
-    plt.title("Sorting Time")
-    plt.legend()
-    plt.show()
+    # # generate report
+    # x = ["Selection Sort","Merge Sort","Insertion Sort","Quick Sort"]
+    # y = [ssort_time, msort_time, isort_time, qsort_time]
+    # plt.bar(x, y, label="Time Chart", color="b")
+    # plt.xlabel("Sorting Techniques")
+    # plt.ylabel("Time Taken (Seconds)")
+    # plt.title("Sorting Time")
+    # plt.legend()
+    # plt.show()
 
 
 if __name__ == '__main__':

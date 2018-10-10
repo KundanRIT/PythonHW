@@ -1,0 +1,77 @@
+Actual Output of selection sort, merge sort, insertion sort and quick sort when
+size of list are 1,10,100,1000,10000.
+
+ALGORITHM		SIZE	COMPARISONS	SECONDS
+Selection Sort	1	    0		    3.337860107421875e-06
+Merge Sort		1	    0		    1.1920928955078125e-06
+Insertion Sort	1	    0		    1.430511474609375e-06
+Quick Sort		1	    0		    1.430511474609375e-06
+
+
+ALGORITHM		SIZE	COMPARISONS	SECONDS
+Selection Sort	10	    45		    2.4080276489257812e-05
+Merge Sort		10	    25		    4.649162292480469e-05
+Insertion Sort	10	    34		    1.7881393432617188e-05
+Quick Sort		10	    21		    1.9550323486328125e-05
+
+
+ALGORITHM		SIZE	COMPARISONS	SECONDS
+Selection Sort	100	    4950		0.0006206035614013672
+Merge Sort		100	    536		    0.0005631446838378906
+Insertion Sort	100	    2480		0.0009160041809082031
+Quick Sort		100	    594		    0.0002193450927734375
+
+
+ALGORITHM		SIZE	COMPARISONS	SECONDS
+Selection Sort	1000	499500		0.08969259262084961
+Merge Sort		1000	8713		0.007726907730102539
+Insertion Sort	1000	249358		0.0829463005065918
+Quick Sort		1000	10466		0.0017580986022949219
+
+
+ALGORITHM		SIZE	COMPARISONS	SECONDS
+Selection Sort	10000	49995000	3.7896697521209717
+Merge Sort		10000	120403		0.054381370544433594
+Insertion Sort	10000	25121332	6.220351934432983
+Quick Sort		10000	149923		0.02284550666809082
+
+Measurements
+1. Algorithm - Sorting technique used to sort the list
+2. Size - size of the list
+3. Comparision - Number of comparisons between list elements required for sorting
+4. Seconds - Time in seconds required in sorting
+
+Time Complexity of sorting techniques:
+Selection Sort - O(n^2) with worst case
+Merge Sort - O(nlogn) with worst case
+Insertion Sort - O(n^2) with worst case
+Quick Sort - O(nlogn) with worst case
+
+The observations match the expected performance of the algorithms. Merge Sort
+and Quick Sort with time complexity O(nlogn) should take comparatively lesser
+time than Selection Sort or Insertion Sort which has worse time complexity of
+O(n^2). Selection Sort or Insertion sort compares every element in the list to
+all of the rest elements. This results in more number of comparisons observed
+when for size 1000 or 10000 when the number of comparisons were 499500 and
+49995000 for selection sort. Whereas, Merge Sort or Quick Sort applies a divide
+and conquer approach where the list is broken down into smaller lists
+and the elements are then compared within the smaller lists. This reduces the
+number of comparisons between list elements.
+
+It is observed whenever the size of list is increased by a multiple of 10, the
+number of comparison is increased with a multiple of 100.
+when size is 1000 => 499500 / 4950 approx equals 100
+when size is 10000 => 49995000 / 499500 approx equals 100
+And assuming the time required to make one comaprision is approx 8e-8.
+When the size of the list is 1000000,
+Selection Sort should take approx 49995000 * 10,000 comparisons and 40,000
+seconds i.e. more than 11 hours.
+
+It is observed whenever the size of list is increased by a multiple of 10, the
+number of comparison is increased with a multiple of 13 to 16.
+when size is 1000 => 8713 / 536 approx equals 16
+when size is 10000 => 120403 / 8713 approx equals 13
+And assuming the time required to make one comaprision is approx 8e-8.
+When the size of the list is 1000000,
+Selection Sort should take approx 120403 * 100 comparisons and not more than 400
+seconds i.e. less than 7 minutes.
