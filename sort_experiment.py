@@ -21,7 +21,7 @@ def main():
     if len(sys.argv) > 1:
         size = int(sys.argv[1])
     else:
-        size = 1000
+        size = 10000
     comparisions = 1234
     # generate data
     testData = generateData(size)
