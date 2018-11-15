@@ -53,7 +53,7 @@ def moveL(root):
     max = 0
     if len(root) != 0:
         for k,v in root.items():
-            i = k + moveR(v.left)
+            i = k + moveL(v.left)
             if i > max:
                 max = i
     return max
@@ -95,7 +95,7 @@ def moveL(root):
 def drawBeam(root, turtle):
     turtle.pendown()
     turtle.forward(50)
-    x = max(moveR(root.left), moveR(root.right))
+    x = max(moveR(root.left), moveL(root.right))
     m = x*10*root.height(root)
     if len(root.left) != 0:
         turtle.right(90)
