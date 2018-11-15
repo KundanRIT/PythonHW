@@ -1,4 +1,4 @@
-# sorting_experiment.py (Python HW 3)
+# sort_experiment.py (Python HW 5)
 # Author: Kundan Kumar (kk7272) & Deepam Shah (ds3689)
 
 import random

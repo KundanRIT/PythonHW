@@ -108,74 +108,85 @@ def alphaTransformation(cipher, message):
 
 
 def main():
-    if len(sys.argv) == 5:
-        message = sys.argv[1]
-        instruction = sys.argv[2]
-        output = sys.argv[3]
-        cipher = sys.argv[4]
-    else:
-        print("You provided invalid command line arguments. "
-              "Please provide them separately")
-        message = input("Enter message file name [message.txt]\n")
-        instruction = input("Enter instruction file name [instruction.txt]\n")
-        output = input("Enter output file name [output.txt]\n")
-        cipher = input("encrypt or decrypt ? [e/d]\n")
-
-    # message = "message.txt"
-    # instruction = "instruction.txt"
-    # output = "output.txt"
-    # cipher = "e"
-    feed = []
-    with open(message) as messageFile, open(instruction) as instructionFile:
-        for messageLine, instructionLine in zip(messageFile, instructionFile):
-            feed.append([messageLine.strip(), instructionLine.strip()])
-    for index, inputLine in enumerate(feed):
-        text = inputLine[0]
-        allInst = inputLine[1].split(";")
-        if cipher == "d":
-            allInst.reverse()
-        result = ""
-        for inst in allInst:
-            if inst[0] is "S":
-                if "," in inst:
-                    commaIndex = inst.index(",")
-                    result = sigmaTransformation(cipher, text,
-                            int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
-                else:
-                    result = sigmaTransformation(cipher, text, int(inst[1:]))
-            elif inst[0] is "R":
-                if len(inst) is 1:
-                    result = roTransformation(cipher, text)
-                else:
-                    result = roTransformation(cipher, text, int(inst[1:]))
-            elif inst[0] is "D":
-                if "," in inst:
-                    commaIndex = inst.index(",")
-                    result = deltaTransformation(cipher, text,
-                            int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
-                else:
-                    result = deltaTransformation(cipher, text, int(inst[1:]))
-            elif inst[0] is "T":
-                if "(" in inst:
-                    openBracketIndex = inst.index("(")
-                    closedBracketIndex = inst.index(")")
-                    commaIndex = inst.index(",")
-                    result = tauTransformation(cipher, text,
-                             int(inst[closedBracketIndex+1:commaIndex]),
-                             int(inst[commaIndex + 1:]), len(text)//
-                                int(inst[openBracketIndex+1:closedBracketIndex]))
-                else:
-                    commaIndex = inst.index(",")
-                    result = tauTransformation(cipher, text,
-                            int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
-            elif inst is "A":
-                result = alphaTransformation(cipher, text)
-            text = result
-        feed[index].append(result)
-    with open(output, "w") as outputFile:
-        for result in feed:
-            print("{}\t{}\t{}".format(result[0],result[1],result[2]))
-            outputFile.write(result[2]+"\n")
+    # if len(sys.argv) == 5:
+    #     message = sys.argv[1]
+    #     instruction = sys.argv[2]
+    #     output = sys.argv[3]
+    #     cipher = sys.argv[4]
+    # else:
+    #     print("You provided invalid command line arguments. "
+    #           "Please provide them separately")
+    #     message = input("Enter message file name [message.txt]\n")
+    #     instruction = input("Enter instruction file name [instruction.txt]\n")
+    #     output = input("Enter output file name [output.txt]\n")
+    #     cipher = input("encrypt or decrypt ? [e/d]\n")
+    #
+    # # message = "message.txt"
+    # # instruction = "instruction.txt"
+    # # output = "output.txt"
+    # # cipher = "e"
+    # feed = []
+    # with open(message) as messageFile, open(instruction) as instructionFile:
+    #     for messageLine, instructionLine in zip(messageFile, instructionFile):
+    #         feed.append([messageLine.strip(), instructionLine.strip()])
+    # for index, inputLine in enumerate(feed):
+    #     text = inputLine[0]
+    #     allInst = inputLine[1].split(";")
+    #     if cipher == "d":
+    #         allInst.reverse()
+    #     result = ""
+    #     for inst in allInst:
+    #         if inst[0] is "S":
+    #             if "," in inst:
+    #                 commaIndex = inst.index(",")
+    #                 result = sigmaTransformation(cipher, text,
+    #                         int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+    #             else:
+    #                 result = sigmaTransformation(cipher, text, int(inst[1:]))
+    #         elif inst[0] is "R":
+    #             if len(inst) is 1:
+    #                 result = roTransformation(cipher, text)
+    #             else:
+    #                 result = roTransformation(cipher, text, int(inst[1:]))
+    #         elif inst[0] is "D":
+    #             if "," in inst:
+    #                 commaIndex = inst.index(",")
+    #                 result = deltaTransformation(cipher, text,
+    #                         int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+    #             else:
+    #                 result = deltaTransformation(cipher, text, int(inst[1:]))
+    #         elif inst[0] is "T":
+    #             if "(" in inst:
+    #                 openBracketIndex = inst.index("(")
+    #                 closedBracketIndex = inst.index(")")
+    #                 commaIndex = inst.index(",")
+    #                 result = tauTransformation(cipher, text,
+    #                          int(inst[closedBracketIndex+1:commaIndex]),
+    #                          int(inst[commaIndex + 1:]), len(text)//
+    #                             int(inst[openBracketIndex+1:closedBracketIndex]))
+    #             else:
+    #                 commaIndex = inst.index(",")
+    #                 result = tauTransformation(cipher, text,
+    #                         int(inst[1:commaIndex]), int(inst[commaIndex + 1:]))
+    #         elif inst is "A":
+    #             result = alphaTransformation(cipher, text)
+    #         text = result
+    #     feed[index].append(result)
+    # with open(output, "w") as outputFile:
+    #     for result in feed:
+    #         print("{}\t{}\t{}".format(result[0],result[1],result[2]))
+    #         outputFile.write(result[2]+"\n")
+    #
+    #
+    #
+    #
+    xxx = []
+    message = "message.txt"
+    with open(message) as messageFile:
+        for messageLine in messageFile:
+           xxx = messageLine.split(",")
+        for x in xxx:
+            print(x)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,14 @@
+# instrumented_sort.py (Python HW 5)
+# Author: Kundan Kumar (kk7272) & Deepam Shah (ds3689)
+
 def findMinIndex(start, itemList):
+    """
+    Selection Sort Helper - Finds index of the smallest element in the list
+    after starting index
+    :param start:
+    :param itemList:
+    :return: index
+    """
     minItem = itemList[start-1]
     minIndex = start-1
     comparisons = 0
@@ -28,11 +38,22 @@ def ssort(itemList):
 
 
 def divide(itemList):
+    """
+    Merge Sort Helper - Divides the list into two halves, left and right
+    :param itemList:
+    :return: tuple left half of list and right part of list
+    """
     mid = len(itemList) // 2
     return itemList[:mid], itemList[mid:]
 
 
 def merge(left, right):
+    """
+    Merge Sort Helper - Merge the left and right half of the list
+    :param left: list
+    :param right: list
+    :return: merged and sorted list
+    """
     mergedList = []
     leftIndex = 0
     rightIndex = 0
@@ -89,6 +110,16 @@ def isort(itemList):
 
 
 def partition(itemList, low, high):
+    """
+    Quick Sort Helper - Partitions the list around the pivot with numbers
+    smaller than pivot on pivots left side and numbers greater than pivot on
+    pivots right side.
+    pivot = last element in list
+    :param itemList: list
+    :param low: lower bound
+    :param high: upper bound
+    :return: partitioned list
+    """
     pivot = itemList[high]
     swapIndex = low
     comparisons = 0
@@ -103,6 +134,14 @@ def partition(itemList, low, high):
 
 
 def quicksort(itemList, low, high, allcomparisons):
+    """
+    Initiates Quick Sort Recursion
+    :param itemList: given list
+    :param low: lower bound
+    :param high: upper bound
+    :param allcomparisons: keeps track of comparisons made
+    :return: sorted list
+    """
     if low < high:
         partitionIndex, part_comparison = partition(itemList, low, high)
         allcomparisons += part_comparison
