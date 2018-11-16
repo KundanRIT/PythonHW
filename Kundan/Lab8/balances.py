@@ -1,18 +1,26 @@
+"""
+Author: Kundan Kumar (kk7272) & Deepam Shah (ds3689)
+Homework 8
+balances.py has two classes weight and beam which are used to insert the weight according to the torque in the
+program. The main method uses turtle to print a visual of the balanced weights.
+"""
+
 from turtle import *
 
 
 class Weight:
     __slots__ = "weight"
-
+# Creating the constructor for weight class
     def __init__(self, weight):
         self.weight = weight
-
+# to String method
     def __str__(self):
         return self.weight
 
 
 class Beam:
     __slots__ = "weight", "left", "right"
+# defining the variables to be used in the program in slots
 
     def __init__(self, weight):
         self.weight = Weight(weight)
@@ -38,7 +46,7 @@ class Beam:
                 mx = max(mx, self.height(v))
             return 1 + mx
 
-
+#moveR method is used to traverse along the right path
 def moveR(root):
     max = 0
     if len(root) != 0:
@@ -48,7 +56,7 @@ def moveR(root):
                 max = i
     return max
 
-
+#moveL method is used to traverse along the left path
 def moveL(root):
     max = 0
     if len(root) != 0:
@@ -57,7 +65,6 @@ def moveL(root):
             if i > max:
                 max = i
     return max
-
 
 # def drawBeam(root, turtle):
 #     turtle.pendown()
@@ -91,7 +98,7 @@ def moveL(root):
 #     turtle.backward(50)
 #     turtle.pendown()
 
-
+#This method is used to draw the beam with informations from our drawL and drawR class
 def drawBeam(root, turtle):
     turtle.pendown()
     turtle.forward(50)
