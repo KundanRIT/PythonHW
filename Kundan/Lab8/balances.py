@@ -1,8 +1,9 @@
 """
 Author: Kundan Kumar (kk7272) & Deepam Shah (ds3689)
-Homework 8
+Lab 8
 balances.py has two classes weight and beam which are used to insert the weight according to the torque in the
 program. The main method uses turtle to print a visual of the balanced weights.
+
 """
 
 from turtle import *
