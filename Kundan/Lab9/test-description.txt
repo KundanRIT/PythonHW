@@ -1,0 +1,87 @@
+Test 1 - Test Not Reachable Blocks
+Description - All inner paths get blocked due to rocks. So there is no path left
+ to escape except the block where exit is present and the block present on its
+ left. Cells present above and below of exit cannot escape as the slide will not
+  let them stop at the exit cell.
+
+Test Data :
+7 7 3
+. . . . . . .
+. . * . * . *
+. * . * . * .
+. . * . * . .
+. * . * . * .
+. . * . * . *
+. . . . . . .
+
+Result -
+1  :  ['5,3', '6,3']
+Not Reachable :  ['0,0', '1,0', '2,0', '3,0', '4,0', '5,0', '6,0', '0,1', '1,1',
+'3,1', '5,1', '0,2', '2,2', '4,2', '6,2', '0,3', '1,3', '3,3', '0,4', '2,4',
+'4,4', '6,4', '0,5', '1,5', '3,5', '5,5', '0,6', '1,6', '2,6', '3,6', '4,6',
+'5,6', '6,6']
+
+Test 2 - Test Path to Exit
+Description - Every cell has exactly one path to exit which should get dispalyed
+
+Test Data -
+10 10 9
+. * * * * * * * * *
+. . * * * * * * * *
+* . . * * * * * * *
+* * . . * * * * * *
+* * * . . * * * * *
+* * * * . . * * * *
+* * * * * . . * * *
+* * * * * * . . * *
+* * * * * * * . . *
+* * * * * * * * . .
+
+Result -
+1  :  ['8,9', '9,9']
+2  :  ['8,8']
+3  :  ['7,8']
+4  :  ['7,7']
+5  :  ['6,7']
+6  :  ['6,6']
+7  :  ['5,6']
+8  :  ['5,5']
+9  :  ['4,5']
+10  :  ['4,4']
+11  :  ['3,4']
+12  :  ['3,3']
+13  :  ['2,3']
+14  :  ['2,2']
+15  :  ['1,2']
+16  :  ['1,1']
+17  :  ['0,1']
+18  :  ['0,0']
+
+Test 3 - Test Shorter Path to Exit
+Description - This test is an enhancement of Test 2 such
+ that a shorter path is introduced for cells which takes more than 8 steps (a
+ direct path). So instead of previous case when every cell had only one path to
+  exit, here there is 2 paths, and only the shorter path is getting displayed.
+
+Test Data -
+10 10 9
+. . . . . . . . . .
+. . * * * * * * * .
+* . . * * * * * * .
+* * . . * * * * * .
+* * * . . * * * * .
+* * * * . . * * * .
+* * * * * . . * * .
+* * * * * * . . * .
+* * * * * * * . . .
+* * * * * * * * . .
+
+Result -
+1  :  ['9,0', '9,1', '9,2', '9,3', '9,4', '9,5', '9,6', '9,7', '9,8', '8,9', '9,9']
+2  :  ['0,0', '1,0', '2,0', '3,0', '4,0', '5,0', '6,0', '7,0', '8,0', '7,8', '8,8']
+3  :  ['0,1', '1,1', '1,2', '7,7']
+4  :  ['2,2', '6,7']
+5  :  ['2,3', '6,6']
+6  :  ['3,3', '5,6']
+7  :  ['3,4', '5,5']
+8  :  ['4,4', '4,5']
